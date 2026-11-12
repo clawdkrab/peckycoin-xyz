@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- custom -->
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pecky ($PECKY) — pecking at green candles</title>
+<meta name="description" content="A yellow-green bird with a big beak and a bigger attitude. Pecking at green candles. $PECKY on Solana, fair launch on pump.fun.">
+<meta property="og:title" content="Pecky ($PECKY)">
+<meta property="og:description" content="A yellow-green bird with a big beak and a bigger attitude. Pecking at green candles.">
+<meta property="og:image" content="banner.jpg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sky:#3DB4F2; --sky2:#8fd6ff; --sky3:#dff4ff; --ink:#0E1E2C; --lime:#D8F542; --lime2:#b9e02a; --yel:#FFD84D; --orange:#FF9B3D; --card:#E8F7FF; --white:#fff; --grass:#55c45a; --grass2:#2f9a3e;
+  --disp:'Luckiest Guy','Impact',sans-serif; --body:'Fredoka',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,body{overflow-x:hidden}
+body{position:relative;margin:0;background:linear-gradient(180deg,#1f8fd6 0%,var(--sky) 25%,var(--sky2) 60%,var(--sky3) 100%);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.5;font-weight:500}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3{font-family:var(--disp);font-weight:400;margin:0;line-height:1;letter-spacing:.02em}
+
+/* ---------- sky layers ---------- */
+.sun{position:fixed;right:-8vw;top:-8vw;width:38vw;height:38vw;max-width:520px;max-height:520px;z-index:0;pointer-events:none;will-change:transform}
+.sun .rays{position:absolute;inset:-60%;border-radius:50%;background:repeating-conic-gradient(rgba(255,216,77,.55) 0 7deg,transparent 7deg 18deg);animation:spin 70s linear infinite;-webkit-mask-image:radial-gradient(circle,#000 20%,transparent 65%);mask-image:radial-gradient(circle,#000 20%,transparent 65%)}
+.sun .disc{position:absolute;inset:18%;border-radius:50%;background:radial-gradient(circle at 40% 35%,#fff6c2,var(--yel) 60%,var(--orange));border:5px solid var(--ink);box-shadow:0 0 0 12px rgba(255,216,77,.3),0 0 60px rgba(255,216,77,.6)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.clouds{position:fixed;left:-20%;width:140%;z-index:0;pointer-events:none;will-change:transform;background-repeat:repeat-x}
+.clouds.c1{top:8vh;height:220px;opacity:.55;background-size:900px 220px;animation:drift 140s linear infinite}
+.clouds.c2{top:34vh;height:260px;opacity:.8;background-size:1100px 260px;animation:drift 95s linear infinite reverse}
+.clouds.c3{top:62vh;height:300px;opacity:1;background-size:1300px 300px;animation:drift 70s linear infinite;z-index:1}
+@keyframes drift{to{background-position:-1300px 0}}
+.bird{position:fixed;left:0;top:22vh;z-index:7;width:clamp(110px,14vw,190px);pointer-events:none;will-change:transform;filter:drop-shadow(0 10px 0 rgba(14,30,44,.15))}
+.bird svg{width:100%;height:auto;animation:hover 1.6s ease-in-out infinite}
+.bird .wing{transform-origin:62px 70px;animation:flap .5s ease-in-out infinite alternate}
+@keyframes flap{from{transform:rotate(-28deg)}to{transform:rotate(22deg)}}
+@keyframes hover{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.bird .trail{position:absolute;right:100%;top:55%;width:70px;height:4px;border-radius:2px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.9))}
+
+/* ---------- primitives ---------- */
+.wrap{position:relative;z-index:3;max-width:1140px;margin:0 auto;padding:0 22px}
+.card{background:var(--card);border:4px solid var(--ink);border-radius:22px;box-shadow:7px 7px 0 var(--ink);position:relative}
+.btn{display:inline-flex;align-items:center;justify-content:center;font-family:var(--disp);font-size:24px;letter-spacing:.04em;text-decoration:none;padding:13px 28px;border:4px solid var(--ink);border-radius:16px;background:var(--lime);color:var(--ink);box-shadow:6px 6px 0 var(--ink);transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 var(--ink)}
+.btn:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink)}
+.btn.white{background:var(--white)}
+.btn.yel{background:var(--yel)}
+.tagline-pill{display:inline-block;background:var(--ink);color:var(--lime);font-family:var(--disp);letter-spacing:.14em;padding:6px 16px;border-radius:999px;font-size:15px}
+
+/* ---------- nav ---------- */
+nav{position:sticky;top:0;z-index:30;background:var(--ink);color:var(--white);border-bottom:4px solid var(--lime)}
+nav .in{max-width:1140px;margin:0 auto;padding:0 22px;height:64px;display:flex;align-items:center;gap:18px}
+nav .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--disp);font-size:26px;color:var(--lime);letter-spacing:.05em}
+nav .brand img{width:40px;height:40px;border-radius:50%;border:3px solid var(--lime)}
+nav .links{margin-left:auto;display:flex;gap:20px;font-weight:600;font-size:15px;text-transform:uppercase;letter-spacing:.08em}
+nav .links a{text-decoration:none;color:#cfe9ff}
+nav .links a:hover{color:var(--lime)}
+nav .btn{font-size:17px;padding:7px 16px;box-shadow:3px 3px 0 var(--lime);border-color:var(--lime)}
+
+/* ---------- hero ---------- */
+.hero{min-height:min(calc(100vh - 64px),800px);display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center;padding:50px 22px 80px}
+.hero>*{min-width:0}
+.hero h1{font-size:clamp(78px,13vw,176px);color:var(--lime);-webkit-text-stroke:3px var(--ink);paint-order:stroke fill;text-shadow:8px 8px 0 var(--ink);margin:14px 0 10px}
+.hero .tag{font-size:clamp(20px,2.3vw,27px);font-weight:600;color:var(--white);text-shadow:2px 2px 0 var(--ink),-1px -1px 0 var(--ink),1px -1px 0 var(--ink),-1px 1px 0 var(--ink);max-width:30ch;margin:0 0 26px}
+.hero .cta{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:24px}
+.ca{display:flex;align-items:center;gap:12px;background:var(--white);border:4px solid var(--ink);border-radius:14px;padding:10px 10px 10px 16px;max-width:560px;box-shadow:6px 6px 0 var(--ink)}
+.ca b{font-family:var(--disp);letter-spacing:.14em;font-size:16px}
+.ca code{flex:1;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:ui-monospace,Menlo,monospace}
+.ca button{font-family:var(--disp);font-size:16px;letter-spacing:.06em;background:var(--ink);color:var(--lime);border:3px solid var(--ink);border-radius:10px;padding:7px 14px;cursor:pointer}
+.ca button:hover{background:var(--lime);color:var(--ink)}
+.porthole{position:relative;justify-self:center;width:min(100%,470px);aspect-ratio:1;border-radius:36% 36% 36% 36%/40% 40% 36% 36%;border:6px solid var(--ink);overflow:hidden;box-shadow:12px 12px 0 var(--ink),inset 0 0 0 10px var(--white);background:#fff;transform:rotate(3deg);will-change:transform}
+.porthole img{width:100%;height:100%;object-fit:cover;padding:10px;border-radius:inherit}
+.porthole .lbl{position:absolute;left:50%;bottom:16px;transform:translateX(-50%) rotate(-3deg);background:var(--yel);border:4px solid var(--ink);border-radius:999px;padding:6px 16px;font-family:var(--disp);font-size:18px;letter-spacing:.08em;white-space:nowrap;box-shadow:3px 3px 0 var(--ink)}
+
+/* ---------- cloud dividers + strips ---------- */
+.divider{position:relative;z-index:3;height:70px;background-image:radial-gradient(circle at 50% 100%,var(--white) 0 38px,transparent 39px);background-size:110px 70px;background-repeat:repeat-x;background-position:center bottom;margin-bottom:-4px}
+.band{position:relative;z-index:3;background:var(--white);padding:60px 0 70px}
+.band.lime{background:var(--lime)}
+.band.ink{background:var(--ink);color:var(--white)}
+.divider.lime{background-image:radial-gradient(circle at 50% 100%,var(--lime) 0 38px,transparent 39px)}
+.divider.ink{background-image:radial-gradient(circle at 50% 100%,var(--ink) 0 38px,transparent 39px)}
+.divider.flip{transform:scaleY(-1);margin:-4px 0 0}
+.ticker{position:relative;z-index:3;overflow:hidden;background:var(--ink);color:var(--lime);border-top:4px solid var(--ink);border-bottom:4px solid var(--ink)}
+.ticker .t{display:flex;width:max-content;animation:mq 20s linear infinite;font-family:var(--disp);font-size:30px;letter-spacing:.14em;padding:10px 0}
+.ticker .t span{padding:0 26px}
+.ticker .t span:nth-child(even){color:var(--white)}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+.sec-h{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:34px}
+.sec-h h2{font-size:clamp(40px,6vw,76px);text-shadow:5px 5px 0 var(--sky)}
+.band.ink .sec-h h2{color:var(--lime);text-shadow:5px 5px 0 #1f8fd6}
+.sec-h .alt{font-family:ui-monospace,Menlo,monospace;font-size:13px;letter-spacing:.2em;background:var(--ink);color:var(--white);padding:6px 12px;border-radius:8px}
+.band.ink .sec-h .alt{background:var(--lime);color:var(--ink)}
+
+/* field notes */
+.notes{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+.notes .journal{padding:30px 34px;background:repeating-linear-gradient(180deg,var(--card) 0 31px,rgba(14,30,44,.12) 31px 32px);border-radius:22px}
+.notes .journal p{margin:0 0 16px;font-size:19px;padding-left:28px;position:relative}
+.notes .journal p::before{content:"";position:absolute;left:0;top:6px;width:16px;height:16px;background:var(--lime);border:3px solid var(--ink);border-radius:50% 50% 50% 0;transform:rotate(-45deg)}
+.notes .journal .clip{position:absolute;left:30px;top:-18px;width:60px;height:26px;border:4px solid var(--ink);border-radius:12px;background:var(--yel)}
+.notes .photo{overflow:hidden;padding:10px;transform:rotate(-2deg)}
+.notes .photo img{width:100%;aspect-ratio:1.1;object-fit:cover;border-radius:14px}
+.notes .photo .pin{position:absolute;left:50%;top:-14px;transform:translateX(-50%);width:28px;height:28px;border-radius:50%;background:#ff5252;border:4px solid var(--ink)}
+
+/* video: in-flight entertainment */
+.ife{max-width:860px;margin:0 auto;padding:12px;background:var(--ink);border-radius:22px;border:4px solid var(--ink);box-shadow:8px 8px 0 var(--sky)}
+.ife video{width:100%;display:block;border-radius:14px;background:#000}
+.ife .bar{display:flex;justify-content:space-between;color:var(--lime);font-family:var(--disp);letter-spacing:.14em;font-size:15px;padding:10px 6px 2px}
+
+/* flight plan */
+.plan{position:relative}
+.plan svg.path{position:absolute;left:0;right:0;top:-6px;width:100%;height:90px;z-index:0}
+.plan .way{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;position:relative;z-index:1}
+.wp{padding:60px 20px 24px;text-align:center}
+.wp .pin{position:absolute;left:50%;top:-30px;transform:translateX(-50%);width:68px;height:68px;border-radius:50% 50% 50% 0;background:var(--lime);border:4px solid var(--ink);display:grid;place-items:center;font-family:var(--disp);font-size:30px;transform:translateX(-50%) rotate(-45deg);box-shadow:3px 3px 0 var(--ink)}
+.wp .pin span{transform:rotate(45deg)}
+.wp:nth-child(2) .pin{background:var(--yel)}.wp:nth-child(3) .pin{background:var(--orange)}.wp:nth-child(4) .pin{background:var(--sky2)}
+.wp h3{font-size:26px;margin-bottom:8px}
+.wp p{margin:0;font-size:16px}
+
+/* weather report */
+.wx{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.wx .day{background:var(--white);color:var(--ink);padding:22px 20px;text-align:center;border-radius:22px;border:4px solid var(--ink);box-shadow:6px 6px 0 var(--lime)}
+.wx .ico{font-size:46px;line-height:1;margin-bottom:8px}
+.wx .k{font-family:var(--disp);letter-spacing:.1em;font-size:18px;color:#1f8fd6}
+.wx .v{font-weight:700;font-size:22px;line-height:1.2;margin-top:6px}
+.wx .f{font-size:13px;opacity:.7;margin-top:8px}
+
+/* sightings */
+.sight{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.sight figure{margin:0;padding:10px 10px 14px;overflow:visible;transition:transform .2s}
+.sight figure:hover{transform:translateY(-6px) rotate(-1deg)}
+.sight img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:14px;border:3px solid var(--ink)}
+.sight figcaption{display:flex;justify-content:space-between;align-items:center;padding-top:10px;font-weight:700;font-size:14px;letter-spacing:.06em}
+.sight figcaption i{font-style:normal;background:var(--lime);border:3px solid var(--ink);border-radius:999px;padding:2px 10px;font-family:var(--disp);letter-spacing:.1em;font-size:13px}
+
+/* footer: the ground */
+footer{position:relative;z-index:3;background:linear-gradient(180deg,var(--grass),var(--grass2));color:var(--white);padding:60px 0 30px;border-top:6px solid var(--ink)}
+footer::before{content:"";position:absolute;left:0;right:0;top:-6px;height:26px;background:radial-gradient(circle at 50% 100%,var(--grass) 0 12px,transparent 13px);background-size:34px 26px;background-repeat:repeat-x;transform:translateY(-100%)}
+footer .row{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-bottom:22px}
+footer .big{font-family:var(--disp);font-size:40px;color:var(--lime);text-shadow:3px 3px 0 var(--ink);letter-spacing:.05em}
+.socials{display:flex;flex-wrap:wrap;gap:10px;margin-left:auto}
+.pill{text-decoration:none;font-weight:700;color:var(--ink);background:var(--white);border:3px solid var(--ink);border-radius:999px;padding:8px 18px;box-shadow:3px 3px 0 var(--ink);transition:transform .15s}
+.pill:hover{transform:translate(-1px,-1px);background:var(--lime)}
+.disc{font-size:13px;opacity:.9;max-width:80ch;margin:0;color:#eafbe9}
+.peck{margin-top:16px;font-family:var(--disp);letter-spacing:.2em;font-size:14px;opacity:.8}
+
+.rv{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s}
+.rv.in{opacity:1;transform:none}
+
+@media (max-width:920px){
+  .hero{grid-template-columns:1fr;padding-top:30px}
+  .porthole{order:-1;width:min(78%,360px)}
+  .notes{grid-template-columns:1fr}
+  .plan .way,.wx{grid-template-columns:1fr 1fr}
+  .plan svg.path{display:none}
+  .sight{grid-template-columns:1fr 1fr}
+  nav .links{display:none}
+}
+@media (max-width:560px){
+  body{font-size:17px}
+  .hero h1{font-size:76px;text-shadow:5px 5px 0 var(--ink)}
+  .plan .way,.wx,.sight{grid-template-columns:1fr}
+  .wp{padding-top:54px}
+  .ca{flex-wrap:wrap}.ca code{flex-basis:100%;order:3;white-space:normal;word-break:break-all}
+  .btn{width:100%}
+  nav .btn{display:none}
+  .bird{top:14vh}
+  .clouds.c1{height:140px;background-size:600px 140px}.clouds.c2{height:170px;background-size:700px 170px}.clouds.c3{height:200px;background-size:800px 200px}
+}
+@media (prefers-reduced-motion:reduce){
+  .sun .rays,.clouds,.bird svg,.bird .wing,.ticker .t{animation:none!important}
+  .bird{display:none}
+  .rv{opacity:1;transform:none;transition:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<div class="sun" id="sun" aria-hidden="true"><div class="rays"></div><div class="disc"></div></div>
+<div class="clouds c1" id="c1" aria-hidden="true"></div>
+<div class="clouds c2" id="c2" aria-hidden="true"></div>
+<div class="clouds c3" id="c3" aria-hidden="true"></div>
+<div class="bird" id="bird" aria-hidden="true">
+  <span class="trail"></span>
+  <svg viewBox="0 0 200 150">
+    <g stroke="#0E1E2C" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+      <!-- tail -->
+      <path d="M40 88 L8 70 L22 94 L4 104 L34 104 Z" fill="#9bc425"/>
+      <!-- body -->
+      <ellipse cx="78" cy="92" rx="48" ry="36" fill="#D8F542"/>
+      <!-- belly -->
+      <path d="M50 100 Q78 128 112 100" fill="none" stroke-width="4"/>
+      <!-- wing -->
+      <path class="wing" d="M62 70 Q20 40 10 62 Q30 72 62 84 Z" fill="#b9e02a"/>
+      <!-- head -->
+      <circle cx="118" cy="56" r="34" fill="#D8F542"/>
+      <!-- crest -->
+      <path d="M112 24 L104 4 L116 18 L122 0 L126 20 L140 8 L130 26 Z" fill="#D8F542"/>
+      <!-- beak -->
+      <path d="M140 52 Q196 60 194 78 Q180 92 150 72 Q142 64 140 52 Z" fill="#FFD84D"/>
+      <path d="M150 72 Q172 86 194 78" fill="none" stroke-width="3"/>
+      <!-- eye -->
+      <ellipse cx="126" cy="50" rx="11" ry="12" fill="#fff"/>
+      <circle cx="129" cy="53" r="5" fill="#0E1E2C" stroke="none"/>
+      <path d="M112 42 Q126 30 140 44" fill="#FF9B3D"/>
+      <!-- feet -->
+      <path d="M70 126 L62 142 M70 126 L74 142 M92 126 L88 142 M92 126 L100 142" fill="none" stroke-width="4"/>
+    </g>
+  </svg>
+</div>
+
+<nav>
+  <div class="in">
+    <a class="brand" href="#top"><img src="logo.png" alt="">$PECKY</a>
+    <div class="links"><a href="#lore">Field notes</a><a href="#buy">Flight plan</a><a href="#tokenomics">Forecast</a><a href="#memes">Sightings</a></div>
+    <a class="btn" id="navbuy" href="#" target="_blank" rel="noopener">Buy $PECKY</a>
+  </div>
+</nav>
+
+<header id="top" class="hero wrap">
+  <div>
+    <span class="tagline-pill">ALTITUDE: GREEN CANDLE</span>
+    <h1>PECKY</h1>
+    <p class="tag">A yellow-green bird with a big beak and a bigger attitude. Pecking at green candles.</p>
+    <div class="cta">
+      <a class="btn" id="buy1" href="#" target="_blank" rel="noopener">Buy on pump.fun</a>
+      
+    </div>
+    <div class="ca"><b>CA</b><code id="ca">Contract address revealed at launch</code><button id="copy" type="button">Copy</button></div>
+  </div>
+  <div class="porthole" id="porthole">
+    <img src="hero.png" alt="Pecky at his desk, staring at candles">
+    <span class="lbl">PECK PECK</span>
+  </div>
+</header>
+
+<div class="ticker" aria-hidden="true"><div class="t" id="tk"></div></div>
+
+<div class="divider"></div>
+<section class="band" id="lore">
+  <div class="wrap">
+    <div class="sec-h"><span class="alt">ALT 1,200 FT</span><h2>Field notes: who is Pecky?</h2></div>
+    <div class="notes">
+      <div class="card journal rv"><span class="clip"></span>
+        <p>Pecky is a lime-green bird with sleepy eyes and a beak far too big for his face. He looks tired. He is not tired. He is pecking.</p>
+        <p>He pecks at charts, at sell walls, at anyone who says birds can't trade. Most days he sits at his desk staring at candles like it's a bird feeder.</p>
+        <p>No roadmap, no VC, no team bag. Just a bird, a beak and a flock that makes the memes.</p>
+      </div>
+      <div class="card photo rv"><span class="pin"></span><img src="meme_01.jpg" alt="Pecky meme" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+<div class="divider flip"></div>
+
+<section id="video" style="position:relative;z-index:3;padding:60px 0">
+  <div class="wrap">
+    <div class="ife rv">
+      <div class="bar"><span>IN-FLIGHT ENTERTAINMENT</span><span>CH. 1 &middot; $PECKY</span></div>
+      <video src="clip.mp4" controls muted loop playsinline preload="metadata"></video>
+    </div>
+  </div>
+</section>
+
+<div class="divider lime"></div>
+<section class="band lime" id="buy">
+  <div class="wrap">
+    <div class="sec-h"><span class="alt">FLIGHT PLAN</span><h2>How to buy</h2></div>
+    <div class="plan">
+      <svg class="path" viewBox="0 0 1000 120" preserveAspectRatio="none" aria-hidden="true"><path d="M60 80 C 250 -20, 400 140, 560 60 S 850 10, 960 70" fill="none" stroke="#0E1E2C" stroke-width="4" stroke-dasharray="12 14"/></svg>
+      <div class="way" style="margin-top:40px">
+        <div class="card wp rv"><span class="pin"><span>1</span></span><h3>Get a wallet</h3><p>Download Phantom or Solflare from the official app store or site.</p></div>
+        <div class="card wp rv"><span class="pin"><span>2</span></span><h3>Load SOL</h3><p>Buy SOL on an exchange and send it to your wallet address.</p></div>
+        <div class="card wp rv"><span class="pin"><span>3</span></span><h3>Go to pump.fun</h3><p>Open the official $PECKY link and connect your wallet. Always check the CA.</p></div>
+        <div class="card wp rv"><span class="pin"><span>4</span></span><h3>Swap for $PECKY</h3><p>Choose how much SOL to swap, confirm, and welcome to the Pecky Flock.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="divider lime flip"></div>
+
+<div class="divider ink" style="margin-top:50px"></div>
+<section class="band ink" id="tokenomics">
+  <div class="wrap">
+    <div class="sec-h"><span class="alt">FORECAST</span><h2>Tokenomics</h2></div>
+    <div class="wx">
+      <div class="day rv"><div class="ico">&#127774;</div><div class="k">SUPPLY</div><div class="v">1,000,000,000</div><div class="f">clear skies, one billion</div></div>
+      <div class="day rv"><div class="ico">&#127782;&#65039;</div><div class="k">LAUNCH</div><div class="v">Fair launch on pump.fun</div><div class="f">no presale front</div></div>
+      <div class="day rv"><div class="ico">&#127780;&#65039;</div><div class="k">TAX</div><div class="v">0% buy / 0% sell</div><div class="f">zero chance of tax</div></div>
+      <div class="day rv"><div class="ico">&#127777;&#65039;</div><div class="k">LIQUIDITY</div><div class="v">Auto-migrated &amp; burned by pump.fun</div><div class="f">burned, not frozen</div></div>
+    </div>
+  </div>
+</section>
+<div class="divider ink flip"></div>
+
+<section id="memes" style="position:relative;z-index:3;padding:70px 0 80px">
+  <div class="wrap">
+    <div class="sec-h"><span class="alt">SIGHTINGS</span><h2>Meme sightings</h2></div>
+    <div class="sight" id="sight"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <span class="big">$PECKY</span>
+      <div class="socials">
+        <a class="pill" id="sx" href="#" target="_blank" rel="noopener">X / Twitter</a>
+        
+        <a class="pill" id="spf" href="#" target="_blank" rel="noopener">pump.fun</a>
+        <a class="pill" id="sdx" href="#" target="_blank" rel="noopener">DEX Screener</a>
+      </div>
+    </div>
+    <p class="disc">$PECKY is a memecoin with no intrinsic value or expectation of financial return. It is not affiliated with, endorsed by, or connected to any person, brand or company referenced in its memes. There is no team roadmap or promise of profit. Crypto is volatile; only spend what you can afford to lose.</p>
+    <p class="peck">PECK PECK &middot; PECKY FLOCK &middot; LANDED</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var CA = "";
+  var S = {x:"", pumpfun:"", dexscreener:""};
+  var MEMES = 9;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function setHref(id,u){var el=document.getElementById(id);if(el&&u)el.href=u;}
+  setHref('buy1',S.pumpfun);setHref('navbuy',S.pumpfun);setHref('spf',S.pumpfun);
+  setHref('sx',S.x);setHref('sdx',S.dexscreener);
+
+  var caEl=document.getElementById('ca');
+  caEl.textContent = CA ? CA : 'Contract address revealed at launch';
+  document.getElementById('copy').addEventListener('click', async function(){
+    var btn=this, txt=caEl.textContent.trim();
+    try{ await navigator.clipboard.writeText(txt); btn.textContent='Copied!'; }
+    catch(e){ btn.textContent='Select'; var r=document.createRange(); r.selectNodeContents(caEl); var s=getSelection(); s.removeAllRanges(); s.addRange(r); }
+    setTimeout(function(){btn.textContent='Copy';},1600);
+  });
+
+  // ticker
+  var tk=document.getElementById('tk'), h='';
+  for(var i=0;i<26;i++) h+='<span>'+(i%2?'$PECKY':'PECK PECK')+'</span>';
+  tk.innerHTML=h;
+
+  // sightings gallery
+  var spots=['Desk, 9:41','Sell wall','Bird feeder','Trenches','Window seat','Candle farm','Night shift','Feeder, again','Green sky'], g='';
+  for(var m=1;m<=MEMES;m++){ var n=(m<10?'0':'')+m; g+='<figure class="card rv"><img loading="lazy" src="meme_'+n+'.jpg" alt="Pecky meme '+m+'"><figcaption><span>'+spots[(m-1)%spots.length]+'</span><i>#'+n+'</i></figcaption></figure>'; }
+  document.getElementById('sight').innerHTML=g;
+
+  // cloud textures (SVG data URIs, three sizes)
+  function cloudSvg(w,hh,op){
+    var s='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+hh+'" viewBox="0 0 '+w+' '+hh+'">';
+    function cloud(x,y,sc){ s+='<g transform="translate('+x+' '+y+') scale('+sc+')" fill="#fff" stroke="#0E1E2C" stroke-width="'+(4/sc).toFixed(1)+'" stroke-linejoin="round" opacity="'+op+'"><path d="M20 70 Q0 70 2 50 Q4 32 24 34 Q28 10 56 14 Q74 0 92 16 Q116 10 120 36 Q142 36 140 56 Q138 72 118 72 Z"/></g>'; }
+    cloud(w*0.05,hh*0.25,1.1); cloud(w*0.42,hh*0.1,0.8); cloud(w*0.7,hh*0.4,1.3);
+    s+='</svg>'; return 'url("data:image/svg+xml;utf8,'+encodeURIComponent(s)+'")';
+  }
+  var c1=document.getElementById('c1'), c2=document.getElementById('c2'), c3=document.getElementById('c3'), sun=document.getElementById('sun'), bird=document.getElementById('bird'), porthole=document.getElementById('porthole');
+  c1.style.backgroundImage=cloudSvg(900,220,0.9);
+  c2.style.backgroundImage=cloudSvg(1100,260,1);
+  c3.style.backgroundImage=cloudSvg(1300,300,1);
+
+  // scroll + pointer parallax, bird flight linked to scroll progress
+  var y=0,mx=0,my=0,ticking=false;
+  function frame(){ ticking=false;
+    var docH=Math.max(1,document.documentElement.scrollHeight-innerHeight), p=Math.min(1,y/docH);
+    sun.style.transform='translate3d('+(mx*-10)+'px,'+(y*0.12+my*-8)+'px,0)';
+    c1.style.transform='translate3d('+(mx*-12)+'px,'+(-y*0.08)+'px,0)';
+    c2.style.transform='translate3d('+(mx*-28)+'px,'+(-y*0.22)+'px,0)';
+    c3.style.transform='translate3d('+(mx*-50)+'px,'+(-y*0.42)+'px,0)';
+    var bw=bird.offsetWidth||150, x=-bw*0.7+p*(innerWidth+bw*1.8);
+    bird.style.transform='translate3d('+x+'px,'+(Math.sin(p*9)*30)+'px,0)';
+    porthole.style.transform='rotate(3deg) translate3d('+(mx*14)+'px,'+(my*10)+'px,0)';
+  }
+  function req(){ if(!ticking){ticking=true;requestAnimationFrame(frame);} }
+  if(!reduce){
+    window.addEventListener('scroll',function(){ y=window.scrollY||0; req(); },{passive:true}); y=window.scrollY||0; req();
+    window.addEventListener('resize',req);
+    if(window.matchMedia('(pointer:fine)').matches){ window.addEventListener('pointermove',function(e){ mx=e.clientX/innerWidth-.5; my=e.clientY/innerHeight-.5; req(); },{passive:true}); }
+  }
+
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.1});
+  document.querySelectorAll('.rv').forEach(function(el){io.observe(el);});
+})();
+</script>
+</body>
+</html>
